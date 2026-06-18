@@ -1,0 +1,15 @@
+{
+  "leads": [],
+  "scraped": [],
+  "messages": [],
+  "settings": {
+    "googleApiKey": "",
+    "geminiApiKey": "",
+    "businessName": "My Business",
+    "businessDesc": "We offer professional web development, SEO services, and digital marketing to help local businesses grow.",
+    "promptTemplate": "You are an AI sales assistant for \"{{businessName}}\". Here is our business details:\n{{businessDesc}}\n\nYour goal is to answer any questions the client has about our services, be polite, professional, and try to book a quick call or meeting. Keep your answers brief (1-3 sentences) and suitable for WhatsApp. Never make things up. If you cannot answer, say that you will have a human representative contact them shortly.",
+    "defaultMsgTemplate": "Hi {{name}}, I noticed your business \"{{name}}\" on Google Maps in {{address}}. We specialize in helping local businesses get more clients. Would you be open to a quick chat about how we can help you grow?",
+    "cooldownMin": 10,
+    "cooldownMax": 20
+  }
+}
