@@ -20,6 +20,7 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
+ENV PUPPETEER_SKIP_DOWNLOAD=true
 RUN npm install
 
 # Copy application code
