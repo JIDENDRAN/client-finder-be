@@ -157,7 +157,8 @@ export async function scrapeGoogleMaps(query) {
 
 export async function searchBusinesses(query) {
   const settings = await db.getSettings();
-  const apiKey = process.env.GOOGLE_API_KEY || settings.googleApiKey;
+  let apiKey = process.env.GOOGLE_API_KEY || settings.googleApiKey;
+  if (apiKey === 'your_google_places_api_key_here') apiKey = '';
 
   if (!apiKey) {
     console.log('Google Places API key is missing. Using free Web Scraper fallback.');

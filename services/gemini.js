@@ -39,7 +39,8 @@ function generateMockAIResponse(clientMessage, businessName) {
 
 export async function generateResponse(leadId, clientMessage) {
   const settings = await db.getSettings();
-  const apiKey = process.env.GEMINI_API_KEY || settings.geminiApiKey;
+  let apiKey = process.env.GEMINI_API_KEY || settings.geminiApiKey;
+  if (apiKey === 'your_gemini_api_key_here') apiKey = '';
   const businessName = settings.businessName;
   const businessDesc = settings.businessDesc;
 
