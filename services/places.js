@@ -18,7 +18,7 @@ export async function scrapeGoogleMaps(query) {
     const searchUrl = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
     
     // Go to Google Maps and wait for results
-    await page.goto(searchUrl, { waitUntil: 'networkidle2', timeout: 30000 });
+    await page.goto(searchUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
     await page.waitForSelector('.hfpxzc', { timeout: 15000 }).catch(() => {});
     
     const results = [];
