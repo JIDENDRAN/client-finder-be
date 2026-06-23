@@ -1,6 +1,106 @@
 {
   "leads": [],
-  "scraped": [],
+  "scraped": [
+    {
+      "id": "scraped_1781778423106_0",
+      "name": "Tulips Dental Center",
+      "phone": "086376 62078",
+      "address": "Local Area",
+      "website": null,
+      "rating": 5,
+      "reviewsCount": 29,
+      "source": "Deep Web Scraper",
+      "scrapedAt": "2026-06-18T10:27:03.326Z"
+    },
+    {
+      "id": "scraped_1781778497573_0",
+      "name": "Krishnanjali Musical Training Center",
+      "phone": "0422 244 2695",
+      "address": "Local Area",
+      "website": null,
+      "rating": 4.7,
+      "reviewsCount": 201,
+      "source": "Deep Web Scraper",
+      "scrapedAt": "2026-06-18T10:28:17.813Z"
+    },
+    {
+      "id": "scraped_1781778520731_0",
+      "name": "Todo Solution",
+      "phone": "086086 09404",
+      "address": "Local Area",
+      "website": null,
+      "rating": 4.8,
+      "reviewsCount": 44,
+      "source": "Deep Web Scraper",
+      "scrapedAt": "2026-06-18T10:28:40.970Z"
+    },
+    {
+      "id": "scraped_1781778558338_0",
+      "name": "SOCIALMEDIAWOODZ",
+      "phone": "080984 94984",
+      "address": "Local Area",
+      "website": null,
+      "rating": 4.9,
+      "reviewsCount": 136,
+      "source": "Deep Web Scraper",
+      "scrapedAt": "2026-06-18T10:29:18.556Z"
+    },
+    {
+      "id": "scraped_1781778667311_0",
+      "name": "Haribhavanam Hotel - Peelamedu",
+      "phone": null,
+      "address": "Local Area",
+      "website": null,
+      "rating": 4.3,
+      "reviewsCount": 90,
+      "source": "Deep Web Scraper (Unlisted)",
+      "scrapedAt": "2026-06-18T10:31:12.069Z"
+    },
+    {
+      "id": "scraped_1781778668828_1",
+      "name": "Akka Kadai",
+      "phone": null,
+      "address": "Local Area",
+      "website": null,
+      "rating": 4.8,
+      "reviewsCount": 172,
+      "source": "Deep Web Scraper (Unlisted)",
+      "scrapedAt": "2026-06-18T10:31:12.069Z"
+    },
+    {
+      "id": "scraped_1781778670337_2",
+      "name": "Cock Ra Co",
+      "phone": null,
+      "address": "Local Area",
+      "website": null,
+      "rating": 4,
+      "reviewsCount": 108,
+      "source": "Deep Web Scraper (Unlisted)",
+      "scrapedAt": "2026-06-18T10:31:12.069Z"
+    },
+    {
+      "id": "scraped_1782189939528_0",
+      "name": "S.P. Industries - Lathe workshop",
+      "phone": "093441 23810",
+      "address": "Local Area",
+      "website": null,
+      "rating": 5,
+      "reviewsCount": 172,
+      "source": "Deep Web Scraper",
+      "scrapedAt": "2026-06-23T04:45:39.908Z"
+    },
+    {
+      "id": "scraped_1782194880169_0",
+      "name": "GM School Of Western Music",
+      "phone": "098941 58567",
+      "address": "Local Area",
+      "website": null,
+      "rating": 4.6,
+      "reviewsCount": 175,
+      "source": "Deep Web Scraper",
+      "scrapedAt": "2026-06-23T06:08:00.378Z"
+    }
+  ],
   "messages": [],
   "settings": {
     "googleApiKey": "",
