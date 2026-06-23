@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { db } from './db.js';
 
 export async function scrapeGoogleMaps(query) {
@@ -156,75 +155,6 @@ export async function scrapeGoogleMaps(query) {
 }
 
 export async function searchBusinesses(query) {
-  const settings = await db.getSettings();
-  let apiKey = process.env.GOOGLE_API_KEY || settings.googleApiKey;
-  if (apiKey === 'your_google_places_api_key_here') apiKey = '';
-
-  if (!apiKey) {
-    console.log('Google Places API key is missing. Using free Web Scraper fallback.');
-    return scrapeGoogleMaps(query);
-  }
-
-  try {
-    console.log(`Searching Google Places for: "${query}"`);
-    // 1. Text Search request
-    const searchUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(query)}&key=${apiKey}`;
-    const searchResponse = await axios.get(searchUrl);
-
-    if (searchResponse.data.status !== 'OK' && searchResponse.data.status !== 'ZERO_RESULTS') {
-      throw new Error(`Google Places API returned status: ${searchResponse.data.status}`);
-    }
-
-    const places = searchResponse.data.results || [];
-    
-    // Take the top 10 results to fetch details (phone, website) in parallel
-    // (Google Places Detail API charges per request, limit to avoid heavy costs)
-    const topPlaces = places.slice(0, 10);
-    
-    const detailsPromises = topPlaces.map(async (place) => {
-      try {
-        const detailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${place.place_id}&fields=name,formatted_phone_number,international_phone_number,website,formatted_address,rating,user_ratings_total&key=${apiKey}`;
-        const detailsResponse = await axios.get(detailsUrl);
-        
-        if (detailsResponse.data.status === 'OK') {
-          const det = detailsResponse.data.result;
-          // Return consolidated place details
-          return {
-            id: place.place_id,
-            name: det.name || place.name,
-            phone: det.international_phone_number || det.formatted_phone_number || null,
-            address: det.formatted_address || place.formatted_address,
-            website: det.website || null,
-            rating: det.rating || place.rating || 0,
-            reviewsCount: det.user_ratings_total || place.user_ratings_total || 0,
-            source: 'Google Places API'
-          };
-        }
-      } catch (err) {
-        console.error(`Failed to fetch details for place_id ${place.place_id}:`, err.message);
-      }
-      
-      // Fallback if details request fails
-      return {
-        id: place.place_id,
-        name: place.name,
-        phone: null,
-        address: place.formatted_address,
-        website: null,
-        rating: place.rating || 0,
-        reviewsCount: place.user_ratings_total || 0,
-        source: 'Google Places API (No Details)'
-      };
-    });
-
-    const detailedPlaces = await Promise.all(detailsPromises);
-    
-    // Filter out places that don't have phone numbers, since we need them for WhatsApp
-    // However, for UI display, we'll keep them but show "No Phone", and let them import only those with numbers.
-    return detailedPlaces;
-
-  } catch (error) {
-    console.error('Error during Google Places search:', error.message);
-    throw error;
-  }
+  return scrapeGoogleMaps(query);
 }
+
