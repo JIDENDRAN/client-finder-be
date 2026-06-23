@@ -29,11 +29,19 @@ export async function scrapeGoogleMaps(query) {
       // Re-evaluate elements count on each loop because of lazy loading
       const elementsCount = await page.evaluate(() => document.querySelectorAll('.hfpxzc').length);
       
+      // Safety limit: Don't scan more than 60 businesses to prevent server timeout
+      if (index >= 60) {
+        console.log('Safety limit of 60 scanned businesses reached. Stopping search.');
+        break;
+      }
+
       // If we've processed all currently visible elements but still need more, we need to scroll
       if (index >= elementsCount) {
         let loadedMore = false;
-        // Try scrolling up to 3 times before giving up
-        for (let scrollAttempt = 0; scrollAttempt < 3; scrollAttempt++) {
+        // Try scrolling more times (up to 10) if we haven't found any valid leads yet
+        const maxScrollAttempts = results.length === 0 ? 10 : 3;
+        
+        for (let scrollAttempt = 0; scrollAttempt < maxScrollAttempts; scrollAttempt++) {
           const scrolled = await page.evaluate(() => {
             const panel = document.querySelector('div[role="feed"]');
             if (panel) {
