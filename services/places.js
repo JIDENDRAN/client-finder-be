@@ -1,11 +1,11 @@
 import { db } from './db.js';
 
-export async function scrapeGoogleMaps(query) {
+export async function scrapeGoogleMaps(query, limit = 50) {
   let browser;
   try {
     const existingScraped = await db.getScraped();
     const puppeteer = (await import('puppeteer')).default;
-    console.log(`Starting Free Web Scraper for: "${query}"...`);
+    console.log(`Starting Free Web Scraper for: "${query}" (Limit: ${limit})...`);
     
     // We use the system Chrome channel to bypass Chromium install requirements
     browser = await puppeteer.launch({
@@ -24,14 +24,14 @@ export async function scrapeGoogleMaps(query) {
     const results = [];
     let index = 0;
     
-    // We will keep trying to find elements until we get exactly 10 valid results
-    while (results.length < 10) {
+    // We will keep trying to find elements until we get exactly requested valid results
+    while (results.length < limit) {
       // Re-evaluate elements count on each loop because of lazy loading
       const elementsCount = await page.evaluate(() => document.querySelectorAll('.hfpxzc').length);
       
-      // Safety limit: Don't scan more than 60 businesses to prevent server timeout
-      if (index >= 60) {
-        console.log('Safety limit of 60 scanned businesses reached. Stopping search.');
+      // Safety limit: Don't scan more than 300 businesses to prevent server timeout
+      if (index >= 300) {
+        console.log('Safety limit of 300 scanned businesses reached. Stopping search.');
         break;
       }
 
@@ -162,7 +162,7 @@ export async function scrapeGoogleMaps(query) {
   }
 }
 
-export async function searchBusinesses(query) {
-  return scrapeGoogleMaps(query);
+export async function searchBusinesses(query, limit = 50) {
+  return scrapeGoogleMaps(query, limit);
 }
 

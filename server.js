@@ -5,6 +5,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { db } from './services/db.js';
 import { searchBusinesses } from './services/places.js';
+import { initScheduler, runScheduledScan } from './services/scheduler.js';
 
 dotenv.config();
 
@@ -143,6 +144,18 @@ app.put('/api/leads/:id', async (req, res) => {
   }
 });
 
+app.put('/api/scraped/:id', async (req, res) => {
+  try {
+    const updatedScraped = await db.updateScraped(req.params.id, req.body);
+    if (!updatedScraped) {
+      return res.status(404).json({ error: 'Scraped business not found' });
+    }
+    res.json(updatedScraped);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.delete('/api/leads/:id', async (req, res) => {
   try {
     const success = await db.deleteLead(req.params.id);
@@ -156,10 +169,20 @@ app.delete('/api/leads/:id', async (req, res) => {
   }
 });
 
-
+// Endpoint to manually trigger the daily scan for testing
+app.post('/api/scheduler/trigger', async (req, res) => {
+  try {
+    const statusResult = await runScheduledScan();
+    res.json(statusResult);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 
 // Start server
 server.listen(PORT, async () => {
   console.log(`Server running on http://localhost:${PORT}`);
+  // Initialize daily scheduler
+  initScheduler();
 });

@@ -93,6 +93,7 @@ export const db = {
       if (!isDuplicate) {
         data.scraped.push({
           ...item,
+          spokenToClient: false,
           scrapedAt: new Date().toISOString()
         });
         added.push(item);
@@ -153,6 +154,17 @@ export const db = {
     return null;
   },
 
+  updateScraped: async (id, updates) => {
+    const data = await loadDb();
+    const index = data.scraped.findIndex(s => s.id === id);
+    if (index !== -1) {
+      data.scraped[index] = { ...data.scraped[index], ...updates };
+      await saveDb();
+      return data.scraped[index];
+    }
+    return null;
+  },
+
   deleteLead: async (id) => {
     const data = await loadDb();
     const len = data.leads.length;
@@ -164,3 +176,4 @@ export const db = {
     return false;
   }
 };
+
